@@ -1,4 +1,4 @@
-// contexts/MobileSizeContext.tsx
+'use client'
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const MobileSizeContext = createContext(false);
@@ -8,14 +8,17 @@ export const useMobileSize = () => useContext(MobileSizeContext);
 export const MobileSizeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mobileSize, setMobileSize] = useState(false);
 
-  useEffect(() => {
-    function handleResize() {
-      setMobileSize(window.innerWidth < 1000);
-    }
-    handleResize();
-    window.addEventListener('resize', handleResize);
+useEffect(() => {
+    if (typeof window === 'undefined') return;
 
-    return () => window.removeEventListener('resize', handleResize);
+    const checkMobile = () => {
+      setMobileSize(window.innerWidth < 1000);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   return (

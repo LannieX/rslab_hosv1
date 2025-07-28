@@ -18,7 +18,7 @@ export default function ApexAreaChart({ label, data, dates, color = '#00E396' }:
       zoom: { enabled: false },
       toolbar: { show: false }
     },
-    colors: [color], // ✅ แปลง string เป็น array
+    colors: [color],
     dataLabels: { enabled: false },
     stroke: { curve: 'smooth' },
     xaxis: {

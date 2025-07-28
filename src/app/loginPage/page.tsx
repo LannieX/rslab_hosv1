@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, IconButton, InputAdornment, TextField } from "@mui/material";

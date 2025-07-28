@@ -1,11 +1,13 @@
-"use client";
+'use client';
+
 import { useEffect, useState } from "react";
-import PieChart from "../componants/circleChart";
-import ApexAreaChart from "../componants/lineChart";
+const PieChart = dynamic(() => import("../componants/circleChart"), { ssr: false });
+const ApexAreaChart = dynamic(() => import("../componants/lineChart"), { ssr: false });
 
 import { useMobileSize } from "../contexts/MobileSizeContext";
 import { LabResultItem } from "@/types/api_type";
 import { Divider } from "@mui/material";
+import dynamic from "next/dynamic";
 
 const HealthResultPage = () => {
   const [labData, setLabData] = useState<LabResultItem[]>([]);
@@ -94,13 +96,6 @@ const HealthResultPage = () => {
     setHDLDate(hdlDateArr);
     setCholesterolDate(cholesterolDateArr);
     setLDLDate(ldlDateArr);
-
-    console.log("hdlArr", hdlArr);
-    console.log("hdlDateArr", hdlDateArr);
-    console.log("cholesterolArr", cholesterolArr);
-    console.log("cholesterolDateArr", cholesterolDateArr);
-    console.log("ldlArr", ldlArr);
-    console.log("ldlDateArr", ldlDateArr);
 
     const avgHDL = average(hdlArr);
     const avgChol = average(cholesterolArr);
