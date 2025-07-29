@@ -9,7 +9,6 @@ import { getLinkPreview } from "link-preview-js";
 import { useMobileSize } from "../contexts/MobileSizeContext";
 
 const HomePage = () => {
-
   const mobileSize = useMobileSize();
 
   getLinkPreview("https://www.thaihealth.or.th/rsv-...")
@@ -38,12 +37,12 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col h-fit w-full">
       <div className="flex items-center overflow-hidden whitespace-nowrap min-h-[60px] bg-gray-200 p-3 mb-3 border-b-2 border-b-gray-400 rounded-2xl">
         <div
           className="inline-block text-green-600 font-light text-[18px] font-kanit"
           style={{
-            animation: "marquee 30s linear infinite",
+            animation: "marquee 50s linear infinite",
             whiteSpace: "nowrap",
             display: "inline-block",
             transform: "translateX(100%)",
@@ -69,11 +68,27 @@ const HomePage = () => {
           }
         `}</style>
       </div>
-      <div className={mobileSize ? "w-full flex flex-col gap-10" : "w-full flex flex-row gap-10 mt-10"}>
+      <div
+        className={
+          mobileSize
+            ? "w-full flex flex-col gap-10 h-fit justify-center items-center"
+            : "w-full flex flex-row gap-10 mt-10 h-fit"
+        }
+      >
         <div className={mobileSize ? "w-full" : "w-[50%]"}>
-          <img src="/image/ai.jpg" alt="logo" className="rounded-2xl" />
+          <img src="/image/b.jpg" alt="logo" className="rounded-2xl" />
         </div>
-        <div className={mobileSize ? "w-full" : "w-[50%]"}>
+        <div
+          className={
+            mobileSize
+              ? "flex flex-col justify-center items-center w-[90%] p-2"
+              : "w-[50%] p-5"
+          }
+        >
+          <img src="/image/h2.png" />
+          <div className="text-[#f19192] text-[52px] font-bold">
+            Health Care{" "}
+          </div>
           <p className="text-black">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -93,8 +108,18 @@ const HomePage = () => {
           </p>
         </div>
       </div>
-      <div className={mobileSize ? "flex flex-col items-center justify-center gap-5 w-full mt-10 pb-10" : "flex flex-row gap-5 w-full mt-10 overflow-x-auto whitespace-nowrap mb-10"}>
-        <div className={mobileSize ? "flex justify-center w-full" : "min-w-[300px]"}>
+      <div
+        className={
+          mobileSize
+            ? "flex flex-col items-center justify-center gap-5 w-full mt-10 pb-10"
+            : "flex flex-row gap-5 w-full mt-10 overflow-x-auto whitespace-nowrap mb-10"
+        }
+      >
+        <div
+          className={
+            mobileSize ? "flex justify-center w-full" : "min-w-[300px]"
+          }
+        >
           <a
             href="https://www.thaihealth.or.th/rsv-%e0%b8%a3%e0%b8%b0%e0%b8%9a%e0%b8%b2%e0%b8%94%e0%b8%a4%e0%b8%94%e0%b8%b9%e0%b8%9d%e0%b8%99-%e0%b8%9b%e0%b9%88%e0%b8%a7%e0%b8%a2%e0%b9%81%e0%b8%a5%e0%b9%89%e0%b8%a7%e0%b8%81%e0%b8%a7%e0%b9%88/"
             target="_blank"
@@ -106,6 +131,7 @@ const HomePage = () => {
               alt="RSV ข่าวสุขภาพ"
               className="w-full h-48 object-cover"
             />
+
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">
                 RSV ระบาดฤดูฝน ป่วยแล้วกว่า 2 หมื่นราย!
@@ -120,7 +146,13 @@ const HomePage = () => {
             </div>
           </a>
         </div>
-        <div className={mobileSize ? "flex justify-center w-full" : "min-w-[300px] bg-white rounded-xl shadow-md"}>
+        <div
+          className={
+            mobileSize
+              ? "flex justify-center w-full"
+              : "min-w-[300px] bg-white rounded-xl shadow-md"
+          }
+        >
           <a
             href="https://www.thaihealth.or.th/%e0%b8%a3%e0%b8%b0%e0%b8%a7%e0%b8%b1%e0%b8%87-%e0%b9%84%e0%b8%a7%e0%b8%a3%e0%b8%b1%e0%b8%aa%e0%b8%8b%e0%b8%b4%e0%b8%81%e0%b8%b2%e0%b8%81%e0%b8%a5%e0%b8%b1%e0%b8%9a%e0%b8%a1%e0%b8%b2-%e0%b9%80/"
             target="_blank"
@@ -146,7 +178,13 @@ const HomePage = () => {
             </div>
           </a>
         </div>
-        <div className={mobileSize ? "flex justify-center w-full" : "min-w-[300px] bg-white rounded-xl shadow-md"}>
+        <div
+          className={
+            mobileSize
+              ? "flex justify-center w-full"
+              : "min-w-[300px] bg-white rounded-xl shadow-md"
+          }
+        >
           <a
             href="https://www.thaihealth.or.th/%e0%b9%80%e0%b8%95%e0%b8%b7%e0%b8%ad%e0%b8%99-%e0%b9%80%e0%b8%88%e0%b9%87%e0%b8%9a%e0%b8%84%e0%b8%ad%e0%b9%84%e0%b8%a1%e0%b9%88%e0%b8%ab%e0%b8%b2%e0%b8%a2%e0%b8%ab%e0%b8%a5%e0%b8%b1%e0%b8%87/"
             target="_blank"
@@ -172,7 +210,13 @@ const HomePage = () => {
             </div>
           </a>
         </div>
-        <div className={mobileSize ? "flex justify-center w-full" : "min-w-[300px] bg-white rounded-xl shadow-md"}>
+        <div
+          className={
+            mobileSize
+              ? "flex justify-center w-full"
+              : "min-w-[300px] bg-white rounded-xl shadow-md"
+          }
+        >
           <a
             href="https://www.thaihealth.or.th/%e0%b9%81%e0%b8%9c%e0%b8%a5%e0%b8%81%e0%b8%a3%e0%b8%b0%e0%b8%88%e0%b8%81%e0%b8%95%e0%b8%b2-%e0%b9%80%e0%b8%aa%e0%b8%b5%e0%b9%88%e0%b8%a2%e0%b8%87%e0%b8%97%e0%b8%b3%e0%b8%95%e0%b8%b2%e0%b8%9a%e0%b8%ad/"
             target="_blank"
@@ -198,7 +242,13 @@ const HomePage = () => {
             </div>
           </a>
         </div>
-        <div className={mobileSize ? "flex justify-center w-full" : "min-w-[300px] bg-white rounded-xl shadow-md"}>
+        <div
+          className={
+            mobileSize
+              ? "flex justify-center w-full"
+              : "min-w-[300px] bg-white rounded-xl shadow-md"
+          }
+        >
           <a
             href="https://www.thaihealth.or.th/%e0%b9%80%e0%b8%ad%e0%b8%8a%e0%b9%84%e0%b8%ad%e0%b8%a7%e0%b8%b5-%e0%b8%95%e0%b8%a3%e0%b8%a7%e0%b8%88%e0%b9%80%e0%b8%a3%e0%b9%87%e0%b8%a7-%e0%b8%a3%e0%b8%b9%e0%b9%89%e0%b8%97%e0%b8%b1%e0%b8%99/"
             target="_blank"
@@ -224,7 +274,13 @@ const HomePage = () => {
             </div>
           </a>
         </div>
-        <div className={mobileSize ? "flex justify-center w-full" : "min-w-[300px] bg-white rounded-xl shadow-md"}>
+        <div
+          className={
+            mobileSize
+              ? "flex justify-center w-full"
+              : "min-w-[300px] bg-white rounded-xl shadow-md"
+          }
+        >
           <a
             href="https://www.thaihealth.or.th/%e0%b9%80%e0%b8%95%e0%b8%b7%e0%b8%ad%e0%b8%99%e0%b8%9c%e0%b8%b9%e0%b9%89%e0%b8%ab%e0%b8%8d%e0%b8%b4%e0%b8%87-%e0%b8%ab%e0%b8%a1%e0%b8%ad%e0%b9%80%e0%b8%9c%e0%b8%a2-2-%e0%b8%a1%e0%b8%b0%e0%b9%80/"
             target="_blank"

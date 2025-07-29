@@ -93,7 +93,7 @@ const LoginPage = () => {
               mobileSize ? "text-[25px]" : "text-[45px]"
             }  font-bold text-gray-700`}
           >
-            Yingo Hospitol
+            Yingo Hospital
           </p>
         </div>
         <div
