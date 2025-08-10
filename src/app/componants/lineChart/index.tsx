@@ -31,7 +31,9 @@ export default function ApexAreaChart({ label, data, dates, color = '#00E396' }:
     }
   };
 
-  const series = [{ name: label, data }];
+  const series = [
+    { name: label, data },
+  ];
 
   return (
     <div className="w-full">

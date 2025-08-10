@@ -41,7 +41,7 @@ const AllResultPage = () => {
       </div>
       <div className="flex flex-col gap-5 mt-7 mb-7 pb-7">
         {labData.map((item, index) => (
-          <div key={index} className="bg-gray-100 p-4 rounded-[8px] shadow-md">
+          <div key={index} className="bg-white p-4 rounded-[8px] shadow-md">
             <p className="text-black font-kanit text-[16px] font-bold">
              เมื่อวันที่ <span>{formatThaiDate(item?.vstdate)}</span>{" "}
             </p>

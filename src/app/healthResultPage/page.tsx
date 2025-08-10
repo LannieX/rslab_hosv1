@@ -9,15 +9,14 @@ const ApexAreaChart = dynamic(() => import("../componants/lineChart"), {
 });
 
 import { useMobileSize } from "../contexts/MobileSizeContext";
-import { LabResultItem, UserInfo } from "@/types/api_type";
+import { LabResultItem } from "@/types/api_type";
 import { Divider } from "@mui/material";
 import dynamic from "next/dynamic";
 
 type AdviceLevel = "normal" | "warning" | "danger";
 
-function getHDLAdviceByGender(
-  HDLavg: number,
-  pname?: string
+function getHDLAdvice(
+  HDLavg: number
 ): { message: string; level: AdviceLevel } {
   if (HDLavg < 0) {
     return {
@@ -26,50 +25,29 @@ function getHDLAdviceByGender(
     };
   }
 
-  const isMale = pname === "นาย" || pname === "เด็กชาย";
-
-  if (isMale) {
-    if (HDLavg < 40) {
-      return {
-        message:
-          "ระดับ HDL ต่ำ เสี่ยงต่อโรคหัวใจ ควรออกกำลังกายเพิ่ม รับประทานอาหารดี เช่น ปลา ถั่ว และน้ำมันมะกอก และหลีกเลี่ยงบุหรี่",
-        level: "danger",
-      };
-    }
-    if (HDLavg < 60) {
-      return {
-        message:
-          "ระดับ HDL ปกติ ควรรักษาวิถีชีวิตสุขภาพดีต่อไป เช่น ออกกำลังกายสม่ำเสมอ และรับประทานอาหารสมดุล",
-        level: "normal",
-      };
-    }
+  if (HDLavg < 35) {
     return {
       message:
-        "ระดับ HDL สูงดีมาก ช่วยลดความเสี่ยงโรคหัวใจ รักษาวิถีชีวิตสุขภาพดีต่อไป",
-      level: "normal",
+        "ระดับ HDL ต่ำ เสี่ยงต่อโรคหัวใจ ควรออกกำลังกายเพิ่ม รับประทานอาหารดี เช่น ปลา ถั่ว และน้ำมันมะกอก และหลีกเลี่ยงบุหรี่",
+      level: "danger",
     };
-  } else {
-    if (HDLavg < 50) {
-      return {
-        message:
-          "ระดับ HDL ต่ำสำหรับผู้หญิง ควรดูแลสุขภาพและปรับพฤติกรรมเพื่อป้องกันโรคหัวใจ",
-        level: "danger",
-      };
-    }
-    if (HDLavg < 60) {
-      return {
-        message:
-          "ระดับ HDL ปกติ ควรรักษาวิถีชีวิตสุขภาพดีต่อไป เช่น ออกกำลังกายสม่ำเสมอ และรับประทานอาหารสมดุล",
-        level: "normal",
-      };
-    }
+  }
+
+  if (HDLavg <= 60) {
     return {
       message:
-        "ระดับ HDL สูงดีมาก ช่วยลดความเสี่ยงโรคหัวใจ รักษาวิถีชีวิตสุขภาพดีต่อไป",
+        "ระดับ HDL ปกติ ควรรักษาวิถีชีวิตสุขภาพดีต่อไป เช่น ออกกำลังกายสม่ำเสมอ และรับประทานอาหารสมดุล",
       level: "normal",
     };
   }
+
+  return {
+    message:
+      "ระดับ HDL สูงดีมาก ช่วยลดความเสี่ยงโรคหัวใจ รักษาวิถีชีวิตสุขภาพดีต่อไป",
+    level: "normal",
+  };
 }
+
 
 function getCholesterolAdvice(totalCholesterol: number): {
   message: string;
@@ -82,7 +60,7 @@ function getCholesterolAdvice(totalCholesterol: number): {
     };
   }
 
-  if (totalCholesterol < 200) {
+  if (totalCholesterol <= 200) {
     return {
       message:
         "ระดับคอเลสเตอรอลอยู่ในเกณฑ์ปกติ รักษาพฤติกรรมสุขภาพดีต่อไป เช่น ออกกำลังกายและรับประทานอาหารที่มีประโยชน์",
@@ -90,7 +68,7 @@ function getCholesterolAdvice(totalCholesterol: number): {
     };
   }
 
-  if (totalCholesterol < 240) {
+  if (totalCholesterol > 200) {
     return {
       message:
         "ระดับคอเลสเตอรอลค่อนข้างสูง ควรควบคุมอาหาร หลีกเลี่ยงของมัน ของทอด ออกกำลังกาย และตรวจสุขภาพสม่ำเสมอ",
@@ -104,6 +82,7 @@ function getCholesterolAdvice(totalCholesterol: number): {
     level: "danger",
   };
 }
+
 function getLDLRecommendation(LDLavg: number): {
   message: string;
   level: AdviceLevel;
@@ -120,17 +99,17 @@ function getLDLRecommendation(LDLavg: number): {
       message: "ค่าดีมาก ควรรักษาระดับนี้ไว้",
       level: "normal",
     };
-  } else if (LDLavg < 130) {
+  } else if (LDLavg < 160) {
     return {
       message: "ค่าปกติ ควรควบคุมอาหารและออกกำลังกายอย่างสม่ำเสมอ",
       level: "normal",
     };
-  } else if (LDLavg < 160) {
+  } else if (LDLavg > 160) {
     return {
       message: "ค่อนข้างสูง ควรลดอาหารไขมันอิ่มตัว และออกกำลังกายมากขึ้น",
       level: "warning",
     };
-  } else if (LDLavg < 190) {
+  } else if (LDLavg > 190) {
     return {
       message: "สูง ควรพบแพทย์ และควบคุมอาหารอย่างเข้มงวด",
       level: "danger",
@@ -146,28 +125,25 @@ function getLDLRecommendation(LDLavg: number): {
 const HealthResultPage = () => {
   const [labData, setLabData] = useState<LabResultItem[]>([]);
   const [HDL, setHDL] = useState<number[]>([]);
+  const HDLMax = Math.max(...HDL);
   const [Cholesterol, setCholesterol] = useState<number[]>([]);
+  const CholesterolMin = Math.min(...Cholesterol);
   const [LDL, setLDL] = useState<number[]>([]);
+  const LDLMin = Math.min(...LDL);
   const [HDLavg, setHDLavg] = useState<number>(0);
   const [Cholesterolavg, setCholesterolavg] = useState<number>(0);
   const [LDLavg, setLDLavg] = useState<number>(0);
   const [HDLDate, setHDLDate] = useState<string[]>([]);
   const [CholesterolDate, setCholesterolDate] = useState<string[]>([]);
   const [LDLDate, setLDLDate] = useState<string[]>([]);
-  const [userInfo, setUserInfo] = useState<UserInfo>();
 
-  const rcmHDL = getHDLAdviceByGender(HDLavg, userInfo?.pname);
+  const rcmHDL = getHDLAdvice(HDLavg);
+  const rcmHDLLine = getHDLAdvice(HDLMax);
   const rcmCholesterol = getCholesterolAdvice(Cholesterolavg);
+  const rcmCholesterolLine = getCholesterolAdvice(CholesterolMin);
   const rcmLDL = getLDLRecommendation(LDLavg);
+  const rcmLDLLine = getLDLRecommendation(LDLMin);
   const mobileSize = useMobileSize();
-
-  useEffect(() => {
-    const storedUserInfo = sessionStorage.getItem("userInfo");
-    console.log("sessionStorage userInfo:", storedUserInfo);
-    if (storedUserInfo) {
-      setUserInfo(JSON.parse(storedUserInfo));
-    }
-  }, []);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("labResult");
@@ -229,9 +205,13 @@ const HealthResultPage = () => {
       }
     });
 
+    console.log('hdlArr',hdlArr)
+    console.log('cholesterolArr',cholesterolArr)
+    console.log('ldlArr',ldlArr)
     setHDL(hdlArr);
     setCholesterol(cholesterolArr);
     setLDL(ldlArr);
+
 
     setHDLDate(hdlDateArr);
     setCholesterolDate(cholesterolDateArr);
@@ -269,12 +249,26 @@ const HealthResultPage = () => {
           }`}
         >
           <div
-            className={`flex flex-1 flex-col justify-center items-center ${
+            className={`flex flex-1 flex-col justify-start items-center ${
               mobileSize ? "mb-7 " : ""
             }`}
           >
-            <p className="text-[14px] text-gray-500 mb-2">HDL</p>
-            <PieChart value={HDLavg} limit={80} color="#83e3b3" />
+            <p className="text-[16px] text-black mb-1">HDL</p>
+            <span className="text-[14px] text-gray-500 mb-3">
+              ค่า HDL ปกติ 35-60 mg/dl
+            </span>
+
+            <PieChart
+              value={HDLavg}
+              limit={80}
+              color={
+                rcmHDL.level === "normal"
+                  ? "#16a34a"
+                  : rcmHDL.level === "warning"
+                  ? "#f97316"
+                  : "#dc2626"
+              }
+            />
             <p className="mt-5 text-[14px] text-black">
               คำแนะนำ :{" "}
               <span
@@ -291,12 +285,25 @@ const HealthResultPage = () => {
             </p>
           </div>
           <div
-            className={`flex flex-1 flex-col justify-center items-center ${
+            className={`flex flex-1 flex-col justify-start items-center ${
               mobileSize ? "mb-7" : ""
             }`}
           >
-            <p className="text-[14px] text-gray-500 mb-2">Cholesterol</p>
-            <PieChart value={Cholesterolavg} limit={250} color="#ff5e69" />
+            <p className="text-[16px] text-black mb-1">Cholesterol</p>
+            <span className="text-[14px] text-gray-500 mb-3">
+              ค่า Cholesterol ปกติ 150-200 mg%
+            </span>
+            <PieChart
+              value={Cholesterolavg}
+              limit={250}
+              color={
+                rcmCholesterol.level === "normal"
+                  ? "#16a34a"
+                  : rcmCholesterol.level === "warning"
+                  ? "#f97316"
+                  : "#dc2626"
+              }
+            />
             <p className="mt-5 text-[14px] text-black">
               คำแนะนำ :{" "}
               <span
@@ -313,12 +320,26 @@ const HealthResultPage = () => {
             </p>
           </div>
           <div
-            className={`flex flex-1 flex-col justify-center items-center ${
+            className={`flex flex-1 flex-col justify-start items-center ${
               mobileSize ? "mb-5" : ""
             }`}
           >
-            <p className="text-[14px] text-gray-500 mb-2">LDL</p>
-            <PieChart value={LDLavg} limit={190} color="#6268fe" />
+            <p className="text-[16px] text-black mb-1">LDL</p>
+            <span className="text-[14px] text-gray-500 mb-3">
+              ค่า LDL ปกติ 135.0-159.0 mg/dl
+            </span>
+
+            <PieChart
+              value={LDLavg}
+              limit={190}
+              color={
+                rcmLDL.level === "normal"
+                  ? "#16a34a"
+                  : rcmLDL.level === "warning"
+                  ? "#f97316"
+                  : "#dc2626"
+              }
+            />
             <p className="mt-5 text-[14px] text-black">
               คำแนะนำ :{" "}
               <span
@@ -350,7 +371,13 @@ const HealthResultPage = () => {
               label="HDL"
               data={HDL}
               dates={HDLDate}
-              color="#83e3b3"
+              color={
+                rcmHDLLine.level === "normal"
+                  ? "#16a34a"
+                  : rcmHDLLine.level === "warning"
+                  ? "#f97316"
+                  : "#dc2626"
+              }
             />
             <p className="text-2xl text-black mb-3">HDL</p>
           </div>
@@ -363,7 +390,13 @@ const HealthResultPage = () => {
               label="Cholesterol"
               data={Cholesterol}
               dates={CholesterolDate}
-              color="#ff5e69"
+              color={
+                rcmCholesterolLine.level === "normal"
+                  ? "#16a34a"
+                  : rcmCholesterolLine.level === "warning"
+                  ? "#f97316"
+                  : "#dc2626"
+              }
             />
             <p className="text-2xl text-black mb-3">Cholesterol</p>
           </div>
@@ -376,7 +409,13 @@ const HealthResultPage = () => {
               label="LDL"
               data={LDL}
               dates={LDLDate}
-              color="#6268fe"
+              color={
+                rcmLDLLine.level === "normal"
+                  ? "#16a34a"
+                  : rcmLDLLine.level === "warning"
+                  ? "#f97316"
+                  : "#dc2626"
+              }
             />
             <p className="text-2xl text-black mb-3">LDL</p>
           </div>
