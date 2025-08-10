@@ -125,11 +125,11 @@ function getLDLRecommendation(LDLavg: number): {
 const HealthResultPage = () => {
   const [labData, setLabData] = useState<LabResultItem[]>([]);
   const [HDL, setHDL] = useState<number[]>([]);
-  const HDLMax = Math.max(...HDL);
+  // const HDLMax = Math.max(...HDL);
   const [Cholesterol, setCholesterol] = useState<number[]>([]);
-  const CholesterolMin = Math.min(...Cholesterol);
+  // const CholesterolMin = Math.min(...Cholesterol);
   const [LDL, setLDL] = useState<number[]>([]);
-  const LDLMin = Math.min(...LDL);
+  // const LDLMin = Math.min(...LDL);
   const [HDLavg, setHDLavg] = useState<number>(0);
   const [Cholesterolavg, setCholesterolavg] = useState<number>(0);
   const [LDLavg, setLDLavg] = useState<number>(0);
@@ -138,11 +138,11 @@ const HealthResultPage = () => {
   const [LDLDate, setLDLDate] = useState<string[]>([]);
 
   const rcmHDL = getHDLAdvice(HDLavg);
-  const rcmHDLLine = getHDLAdvice(HDLMax);
+  // const rcmHDLLine = getHDLAdvice(HDLMax);
   const rcmCholesterol = getCholesterolAdvice(Cholesterolavg);
-  const rcmCholesterolLine = getCholesterolAdvice(CholesterolMin);
+  // const rcmCholesterolLine = getCholesterolAdvice(CholesterolMin);
   const rcmLDL = getLDLRecommendation(LDLavg);
-  const rcmLDLLine = getLDLRecommendation(LDLMin);
+  // const rcmLDLLine = getLDLRecommendation(LDLMin);
   const mobileSize = useMobileSize();
 
   useEffect(() => {
@@ -372,9 +372,9 @@ const HealthResultPage = () => {
               data={HDL}
               dates={HDLDate}
               color={
-                rcmHDLLine.level === "normal"
+                rcmHDL.level === "normal"
                   ? "#16a34a"
-                  : rcmHDLLine.level === "warning"
+                  : rcmHDL.level === "warning"
                   ? "#f97316"
                   : "#dc2626"
               }
@@ -391,9 +391,9 @@ const HealthResultPage = () => {
               data={Cholesterol}
               dates={CholesterolDate}
               color={
-                rcmCholesterolLine.level === "normal"
+                rcmCholesterol.level === "normal"
                   ? "#16a34a"
-                  : rcmCholesterolLine.level === "warning"
+                  : rcmCholesterol.level === "warning"
                   ? "#f97316"
                   : "#dc2626"
               }
@@ -410,9 +410,9 @@ const HealthResultPage = () => {
               data={LDL}
               dates={LDLDate}
               color={
-                rcmLDLLine.level === "normal"
+                rcmLDL.level === "normal"
                   ? "#16a34a"
-                  : rcmLDLLine.level === "warning"
+                  : rcmLDL.level === "warning"
                   ? "#f97316"
                   : "#dc2626"
               }
